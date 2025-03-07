@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "activid-direct-games.browser": {
+      "appLocation": "bin\\Release\\net8.0-browser\\publish\\wwwroot",
+      "outputLocation": ".",
+      "appName": "ActivityDirectorGames",
+      "resourceGroup": "ActivityDirectorGames_group"
+    }
+  }
+}

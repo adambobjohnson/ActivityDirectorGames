@@ -1,0 +1,1112 @@
+<UserControl
+    x:Class="ActivityDirectorGames.Views.WheelOfFortuneView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:ActivityDirectorGames.Views"
+    xmlns:vm="using:ActivityDirectorGames.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:WheelOfFortuneViewModel"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="Label.Tile.NotUsed">
+            <Setter Property="Template">
+                <ControlTemplate TargetType="Label">
+                    <Border BorderBrush="DarkGreen" BorderThickness="0">
+                        <Border
+                            Margin="0"
+                            Padding="0"
+                            Background="Green"
+                            BorderBrush="{DynamicResource TextControlBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="0">
+                            <ThemeVariantScope>
+                                <Grid MinWidth="12" MinHeight="17">
+                                    <Image
+                                        Width="10"
+                                        Height="10"
+                                        Source="avares://ActivityDirectorGames/Assets/WheelOfFortuneTile.png" />
+                                </Grid>
+                            </ThemeVariantScope>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="Label.Tile.Used">
+            <Setter Property="Template">
+                <ControlTemplate TargetType="Label">
+                    <Border BorderBrush="DarkGreen" BorderThickness="0">
+                        <Border
+                            Margin="0"
+                            Padding="0"
+                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                            BorderBrush="{DynamicResource TextControlBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="0">
+                            <ThemeVariantScope>
+                                <Grid MinWidth="12" MinHeight="17">
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="13"
+                                        Foreground="{DynamicResource SystemBaseHighColor}"
+                                        Text="{TemplateBinding ContentControl.Content}" />
+                                </Grid>
+                            </ThemeVariantScope>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="Label.Tile.JustFound">
+            <Setter Property="Template">
+                <ControlTemplate TargetType="Label">
+                    <Border BorderBrush="DarkGreen" BorderThickness="0">
+                        <Border
+                            Margin="0"
+                            Padding="0"
+                            Background="Gold"
+                            BorderBrush="{DynamicResource TextControlBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="0">
+                            <Grid MinWidth="12" MinHeight="17" />
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="Label.Alphabet.Enabled">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border
+                            Margin="0"
+                            Padding="0"
+                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                            BorderBrush="{DynamicResource TextControlBorderBrush}"
+                            BorderThickness="0"
+                            CornerRadius="0">
+                            <ThemeVariantScope>
+                                <Grid Width="18">
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="11"
+                                        Foreground="{DynamicResource SystemBaseHighColor}"
+                                        Text="{TemplateBinding ContentControl.Content}" />
+                                </Grid>
+                            </ThemeVariantScope>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style Selector="Label.Alphabet.Disabled.Success">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border
+                            Margin="0"
+                            Padding="0"
+                            Background="{DynamicResource SystemBaseLowColor}"
+                            BorderBrush="{DynamicResource TextControlBorderBrush}"
+                            BorderThickness="0"
+                            CornerRadius="0">
+                            <ThemeVariantScope>
+                                <Grid Width="18">
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="11"
+                                        Foreground="{DynamicResource SystemBaseLowColor}"
+                                        Text="{TemplateBinding ContentControl.Content}" />
+                                </Grid>
+                            </ThemeVariantScope>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style Selector="Label.Alphabet.Disabled.Fail">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border
+                            Margin="0"
+                            Padding="0"
+                            Background="LightSalmon"
+                            BorderBrush="{DynamicResource TextControlBorderBrush}"
+                            BorderThickness="0"
+                            CornerRadius="0">
+                            <ThemeVariantScope>
+                                <Grid Width="18">
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="11"
+                                        Foreground="{DynamicResource SystemBaseLowColor}"
+                                        Text="{TemplateBinding ContentControl.Content}" />
+                                </Grid>
+                            </ThemeVariantScope>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style Selector="Border.LetterFound">
+            <Setter Property="BorderBrush" Value="Goldenrod" />
+        </Style>
+        <Style Selector="Border.LetterNotFound">
+            <Setter Property="BorderBrush" Value="Red" />
+        </Style>
+    </UserControl.Styles>
+    <Grid x:Name="Root">
+        <Grid
+            Name="SetupTab"
+            HorizontalAlignment="Stretch"
+            IsVisible="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid TextElement.FontSize="18">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="350" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border
+                    Grid.Column="0"
+                    Margin="5"
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="{DynamicResource TextControlBorderBrush}"
+                    BorderThickness="2"
+                    CornerRadius="5">
+                    <DockPanel HorizontalAlignment="Stretch">
+
+                        <!--  This is our title text block. We use Style.Classes to style it accordingly  -->
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            DockPanel.Dock="Top"
+                            FontSize="26"
+                            Text="Rounds" />
+
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding AddNewRoundCommand}"
+                            DockPanel.Dock="Bottom">
+                            <DockPanel>
+                                <PathIcon
+                                    Height="26"
+                                    Margin="10,5"
+                                    Data="{DynamicResource AddNewIcon}"
+                                    DockPanel.Dock="Left"
+                                    Foreground="Green" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    FontSize="26"
+                                    TextAlignment="Center">
+                                    Add New Round
+                                </TextBlock>
+                            </DockPanel>
+
+                        </Button>
+                        <ListBox
+                            ItemsSource="{Binding Rounds}"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible"
+                            SelectedItem="{Binding CurrentRound}">
+                            <ItemsControl.ItemTemplate>
+                                <!--  The ItemTemplate defines how each item should be represented  -->
+                                <!--  Our Item will be represented by a CheckBox and a Delete-Button  -->
+                                <DataTemplate DataType="vm:WheelOfFortuneRoundViewModel">
+                                    <Border
+                                        Padding="5"
+                                        HorizontalAlignment="Stretch"
+                                        CornerRadius="5">
+                                        <Grid ColumnDefinitions="Auto, *, Auto">
+                                            <PathIcon
+                                                Height="20"
+                                                Data="{DynamicResource AcceptIconData}"
+                                                Foreground="Green"
+                                                IsVisible="{Binding CanStartGame}"
+                                                ToolTip.Tip="Round can be started" />
+                                            <PathIcon
+                                                Height="20"
+                                                Data="{DynamicResource CircleExclamation}"
+                                                Foreground="Red"
+                                                IsVisible="{Binding !CanStartGame}"
+                                                ToolTip.Tip="Round cannot be started!" />
+                                            <StackPanel Grid.Column="1" Margin="15,0">
+                                                <Label HorizontalAlignment="Center">
+                                                    <TextBlock>
+                                                        <Run Text="Round " />
+                                                        <Run Text="{Binding RoundNumber}" />
+                                                        <Run Text=":" />
+                                                    </TextBlock>
+                                                </Label>
+                                                <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
+                                            </StackPanel>
+
+                                            <!--  Note how we use the Root-Grid to get the MainViewModel here. As we use compiled bindings we have to cast the DataContext  -->
+                                            <!--  The command parameter is the local ToDoItemViewModel being processed  -->
+                                            <Button
+                                                Grid.Column="2"
+                                                Command="{Binding #Root.((vm:WheelOfFortuneViewModel)DataContext).RemoveRoundCommand}"
+                                                CommandParameter="{Binding .}">
+                                                <PathIcon
+                                                    Height="20"
+                                                    Data="{DynamicResource DeleteIconData}"
+                                                    Foreground="Red" />
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ListBox>
+
+                        <!--  This TextBox can be used to add new ToDoItems  -->
+                    </DockPanel>
+                </Border>
+                <ScrollViewer Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <Viewbox
+                        MinWidth="500"
+                        HorizontalAlignment="Stretch"
+                        IsVisible="{Binding ShowBoardSetup}">
+                        <Grid DataContext="{Binding CurrentRound}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="5,10,5,0"
+                                HorizontalAlignment="Right">
+                                Row One (12 letters max)
+                            </Label>
+                            <TextBox
+                                Name="FirstRowTextBox"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                MinWidth="200"
+                                Margin="5"
+                                HorizontalAlignment="Stretch"
+                                MaxLength="12"
+                                Text="{Binding RowOneText}"
+                                TextAlignment="Center"
+                                Watermark="(blank)" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="5,10,5,0"
+                                HorizontalAlignment="Right">
+                                Row Two (14 letters max)
+                            </Label>
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                MinWidth="200"
+                                Margin="5"
+                                HorizontalAlignment="Stretch"
+                                MaxLength="14"
+                                Text="{Binding RowTwoText}"
+                                TextAlignment="Center"
+                                Watermark="(blank)" />
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Margin="5,10,5,0"
+                                HorizontalAlignment="Right">
+                                Row Three (14 letters max)
+                            </Label>
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                MinWidth="200"
+                                Margin="5"
+                                HorizontalAlignment="Stretch"
+                                MaxLength="14"
+                                Text="{Binding RowThreeText}"
+                                TextAlignment="Center"
+                                Watermark="(blank)" />
+                            <Label
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Margin="5,10,5,0"
+                                HorizontalAlignment="Right">
+                                Row Four (12 letters max)
+                            </Label>
+                            <TextBox
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                MinWidth="200"
+                                Margin="5"
+                                HorizontalAlignment="Stretch"
+                                MaxLength="12"
+                                Text="{Binding RowFourText}"
+                                TextAlignment="Center"
+                                Watermark="(blank)" />
+                            <Label
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Margin="5,10,5,0"
+                                HorizontalAlignment="Right">
+                                Clue/Prompt/Title
+                            </Label>
+                            <TextBox
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                MinWidth="200"
+                                Margin="5"
+                                HorizontalAlignment="Stretch"
+                                MaxLength="50"
+                                Text="{Binding Title}"
+                                TextAlignment="Center" />
+                            <StackPanel
+                                Grid.Row="5"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center">
+                                <Button
+                                    Name="ClearFields"
+                                    Margin="5,10"
+                                    HorizontalAlignment="Center"
+                                    Click="ClearFields_Click">
+                                    <TextBlock>
+                                        <Path
+                                            Height="16"
+                                            Data="{StaticResource reloadIcon}"
+                                            Fill="{DynamicResource SystemBaseHighColor}"
+                                            Stretch="Uniform" />
+                                        <Run>Clear all fields</Run>
+                                    </TextBlock>
+                                </Button>
+                                <StackPanel
+                                    HorizontalAlignment="Center"
+                                    IsVisible="{Binding ShowWarning}"
+                                    Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="10,5,10,10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}">
+                                        Changing any of these fields will start a new round!
+                                    </TextBlock>
+                                    <Button Margin="5" Click="StartRound_Click">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path
+                                                Height="16"
+                                                Data="{StaticResource backIcon}"
+                                                Fill="{DynamicResource SystemBaseHighColor}"
+                                                Stretch="Uniform">
+                                                <Path.RenderTransform>
+                                                    <ScaleTransform ScaleX="-1.0" />
+                                                </Path.RenderTransform>
+                                            </Path>
+                                            <Path
+                                                Height="16"
+                                                Data="{StaticResource backIcon}"
+                                                Fill="{DynamicResource SystemBaseHighColor}"
+                                                Stretch="Uniform">
+                                                <Path.RenderTransform>
+                                                    <ScaleTransform ScaleX="-1.0" />
+                                                </Path.RenderTransform>
+                                            </Path>
+                                            <TextBlock Margin="10,0">
+                                                Back to Game
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                    </Button>
+                                </StackPanel>
+                                <Button
+                                    Margin="5,10"
+                                    HorizontalAlignment="Center"
+                                    Click="StartRound_Click"
+                                    IsVisible="{Binding #Root.((vm:WheelOfFortuneViewModel)DataContext).CanStartGame}">
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="avares://ActivityDirectorGames/Assets/WheelOfFortune.png" />
+                                        <TextBlock Margin="5,0" VerticalAlignment="Center">Start New Round</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Viewbox>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        <Grid
+            Name="GameTab"
+            DataContext="{Binding CurrentRound}"
+            IsVisible="False">
+            <Grid
+                Name="LetterResultsPanel"
+                HorizontalAlignment="Stretch"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                IsVisible="False"
+                ZIndex="10">
+                <Viewbox Margin="2" StretchDirection="Both">
+                    <Border
+                        Name="LetterResultsBorder"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        Classes="LetterFound"
+                        CornerRadius="2">
+                        <Label x:Name="LetterResultsMessage" Margin="10,2">
+                            No X's Found
+                        </Label>
+                    </Border>
+                </Viewbox>
+            </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Viewbox Grid.Row="0">
+                <Border BorderBrush="Goldenrod" BorderThickness="0">
+                    <Grid
+                        Margin="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        ZIndex="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Background="Transparent"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,3,3" />
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="3"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="4"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="5"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="6"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="7"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="8"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="9"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="10"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="11"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="12"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="13"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="14"
+                            Background="Transparent"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="3,0,0,3" />
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="3,0,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="4"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="5"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="6"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="7"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="8"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="9"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="10"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="11"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="12"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="13"
+                            Classes="Tile NotUsed" />
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="14"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,3,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="3,0,0,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="3"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="4"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="5"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="6"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="7"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="8"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="9"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="10"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="11"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="12"
+                            Classes="Tile NotUsed" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="13"
+                            Classes="Tile NotUsed" />
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="14"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,3,0">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Background="Transparent"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,3,3,0" />
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="4"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="5"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="6"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="7"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="8"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="9"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="10"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="11"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="12"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="13"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="0,0,0,3">
+                            <Label Classes="Tile NotUsed" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="14"
+                            Background="Transparent"
+                            BorderBrush="GoldenRod"
+                            BorderThickness="3,3,0,0" />
+                        <Border
+                            Grid.Row="4"
+                            Grid.ColumnSpan="15"
+                            MinHeight="2"
+                            Margin="0,1"
+                            BorderBrush="{DynamicResource TextControlBorderBrush}"
+                            BorderThickness="0,2">
+                            <TextBlock
+                                Margin="0,1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="11"
+                                Text="{Binding Title}" />
+                        </Border>
+                        <Grid
+                            Grid.Row="5"
+                            Grid.ColumnSpan="15"
+                            Margin="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            ZIndex="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="11" />
+                                <RowDefinition Height="11" />
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="0,0,3,0"
+                                Orientation="Horizontal">
+                                <Label Classes="Alphabet Enabled" FontWeight="Bold">
+                                    A
+                                </Label>
+                                <Label Classes="Alphabet Enabled" FontWeight="Bold">
+                                    E
+                                </Label>
+                                <Label Classes="Alphabet Enabled" FontWeight="Bold">
+                                    I
+                                </Label>
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="0,0,3,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Label Classes="Alphabet Enabled" FontWeight="Bold">
+                                    O
+                                </Label>
+                                <Label Classes="Alphabet Enabled" FontWeight="Bold">
+                                    U
+                                </Label>
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Label Classes="Alphabet Enabled">
+                                    B
+                                </Label>
+                                <Label Classes="Alphabet Enabled">
+                                    C
+                                </Label>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="3"
+                                    Classes="Alphabet Enabled">
+                                    D
+                                </Label>
+                                <Label Classes="Alphabet Enabled">
+                                    F
+                                </Label>
+                                <Label Classes="Alphabet Enabled">
+                                    G
+                                </Label>
+                                <Label Classes="Alphabet Enabled">
+                                    H
+                                </Label>
+
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="9"
+                                    Classes="Alphabet Enabled">
+                                    J
+                                </Label>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="10"
+                                    Classes="Alphabet Enabled">
+                                    K
+                                </Label>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="11"
+                                    Classes="Alphabet Enabled">
+                                    L
+                                </Label>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="12"
+                                    Classes="Alphabet Enabled">
+                                    M
+                                </Label>
+
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Classes="Alphabet Enabled">
+                                    N
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Classes="Alphabet Enabled">
+                                    P
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="4"
+                                    Classes="Alphabet Enabled">
+                                    Q
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Classes="Alphabet Enabled">
+                                    R
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="6"
+                                    Classes="Alphabet Enabled">
+                                    S
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="7"
+                                    Classes="Alphabet Enabled">
+                                    T
+                                </Label>
+
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="8"
+                                    Classes="Alphabet Enabled">
+                                    V
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="9"
+                                    Classes="Alphabet Enabled">
+                                    W
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="10"
+                                    Classes="Alphabet Enabled">
+                                    X
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="11"
+                                    Classes="Alphabet Enabled">
+                                    Y
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="12"
+                                    Classes="Alphabet Enabled"
+                                    FontStyle="">
+                                    Z
+                                </Label>
+
+                            </StackPanel>
+
+
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Viewbox>
+            <Grid
+                Grid.Row="1"
+                Margin="0"
+                HorizontalAlignment="Stretch"
+                ColumnDefinitions="auto,auto,*,auto,auto">
+                <Button
+                    Grid.Column="0"
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    Click="GotToSteup_Click"
+                    ToolTip.Tip="Board Setup">
+                    <StackPanel Orientation="Horizontal">
+                        <Path
+                            Height="20"
+                            Data="{StaticResource GearIconData}"
+                            Fill="{DynamicResource SystemBaseHighColor}"
+                            Stretch="Uniform" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    Grid.Column="1"
+                    Click="PreviousRound_Click"
+                    IsVisible="{Binding #Root.((vm:WheelOfFortuneViewModel)DataContext).CanGoBack}"
+                    ToolTip.Tip="Go to Previous Round">
+                    <StackPanel Orientation="Horizontal">
+                        <Path
+                            Height="20"
+                            Data="{StaticResource backIcon}"
+                            Fill="{DynamicResource SystemBaseHighColor}"
+                            Stretch="Uniform" />
+                        <Path
+                            Height="20"
+                            Data="{StaticResource backIcon}"
+                            Fill="{DynamicResource SystemBaseHighColor}"
+                            Stretch="Uniform" />
+                    </StackPanel>
+                </Button>
+
+                <Button
+                    Grid.Column="3"
+                    Click="NextRound_Click"
+                    IsVisible="{Binding #Root.((vm:WheelOfFortuneViewModel)DataContext).CanGoNext}"
+                    ToolTip.Tip="Go to Next Round">
+                    <StackPanel Orientation="Horizontal">
+                        <Path
+                            Height="20"
+                            Data="{StaticResource backIcon}"
+                            Fill="{DynamicResource SystemBaseHighColor}"
+                            Stretch="Uniform">
+                            <Path.RenderTransform>
+                                <ScaleTransform ScaleX="-1.0" />
+                            </Path.RenderTransform>
+                        </Path>
+                        <Path
+                            Height="20"
+                            Data="{StaticResource backIcon}"
+                            Fill="{DynamicResource SystemBaseHighColor}"
+                            Stretch="Uniform">
+                            <Path.RenderTransform>
+                                <ScaleTransform ScaleX="-1.0" />
+                            </Path.RenderTransform>
+                        </Path>
+                    </StackPanel>
+                </Button>
+                <Button
+                    Grid.Column="4"
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Click="PlayerSolved_Click"
+                    ToolTip.Tip="Puzzle was Solved - Reveal Answer">
+                    <TextBlock Margin="10,0" FontSize="20">
+                        Puzzle Solved!
+                    </TextBlock>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

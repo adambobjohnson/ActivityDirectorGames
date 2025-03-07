@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net8.0-browser</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+	  <DebuggerSupport>true</DebuggerSupport>
+	  <WasmDebugLevel>5</WasmDebugLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Browser.Blazor" Version="11.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ActivityDirectorGames\ActivityDirectorGames.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+	</ItemGroup>
+</Project>

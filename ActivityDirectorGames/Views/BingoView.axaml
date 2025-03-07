@@ -1,0 +1,1438 @@
+<UserControl
+    x:Class="ActivityDirectorGames.Views.BingoView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="Border.BingoRedLetter">
+            <Setter Property="Cursor" Value="Arrow" />
+            <Setter Property="BorderBrush" Value="Red" />
+        </Style>
+        <Style Selector="Border.BingoBlueLetter">
+            <Setter Property="Cursor" Value="Arrow" />
+            <Setter Property="BorderBrush" Value="Blue" />
+        </Style>
+        <Style Selector="Border.BingoIsBlackout">
+            <Setter Property="Cursor" Value="Arrow" />
+            <Setter Property="BorderBrush" Value="{DynamicResource TextControlForeground}" />
+        </Style>
+        <Style Selector="Viewbox.Border.ThemeVariantScope">
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+    </UserControl.Styles>
+    <Grid>
+        <Grid
+            Name="SelectedNumberPanel"
+            HorizontalAlignment="Stretch"
+            Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+            IsVisible="False"
+            ZIndex="10">
+            <Viewbox Margin="2" StretchDirection="Both">
+                <Border
+                    Padding="2"
+                    Background="Transparent"
+                    BorderBrush="Red"
+                    BorderThickness="1"
+                    CornerRadius="2">
+                    <Label x:Name="SelectedNumber" Margin="10,2" />
+                </Border>
+            </Viewbox>
+        </Grid>
+        <Grid
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            ColumnDefinitions="auto,*"
+            ZIndex="1">
+            <Viewbox Grid.Column="0">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    IsVisible="{Binding ElementName=BlackoutToggle, Path=IsChecked}"
+                    TextElement.FontWeight="Bold">
+                    <Label>B</Label>
+                    <Label>L</Label>
+                    <Label>A</Label>
+                    <Label>C</Label>
+                    <Label>K</Label>
+                    <Label />
+                    <Label>O</Label>
+                    <Label>U</Label>
+                    <Label>T</Label>
+                    <Label />
+                </StackPanel>
+            </Viewbox>
+            <Grid
+                Name="gameBoard"
+                Grid.Column="1"
+                Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="*" MinHeight="60" MaxHeight="125" />
+                </Grid.RowDefinitions>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="2"
+                    StretchDirection="Both">
+                    <Border
+                        Padding="2"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
+                        Classes.BingoRedLetter="{Binding !#BlackoutToggle.IsChecked}"
+                        CornerRadius="2">
+                        <Label Margin="6,2">B</Label>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>01</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>02</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>03</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>04</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="5"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>05</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="6"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>06</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="7"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>07</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="8"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>08</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="9"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>09</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="10"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>10</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="11"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>11</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="12"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>12</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="13"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>13</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="14"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>14</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="0"
+                    Grid.Column="15"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>15</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="2"
+                    StretchDirection="Both">
+                    <Border
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        Classes.BingoBlueLetter="{Binding !#BlackoutToggle.IsChecked}"
+                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
+                        CornerRadius="2">
+                        <Label Margin="9,2" HorizontalAlignment="Stretch">I</Label>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>16</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>17</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>18</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>19</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>20</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="6"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>21</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="7"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>22</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="8"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>23</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="9"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>24</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="10"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>25</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="11"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>26</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="12"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>27</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="13"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>28</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="14"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>29</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Grid.Column="15"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>30</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="2"
+                    StretchDirection="Both">
+                    <Border
+                        Padding="2"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
+                        Classes.BingoRedLetter="{Binding !#BlackoutToggle.IsChecked}"
+                        CornerRadius="2">
+                        <Label Margin="5,2">N</Label>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>31</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>32</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>33</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>34</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="5"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>35</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="6"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>36</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="7"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>37</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="8"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>38</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="9"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>39</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="10"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>40</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="11"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>41</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="12"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>42</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="13"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>43</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="14"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>44</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="2"
+                    Grid.Column="15"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>45</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="2"
+                    StretchDirection="Both">
+                    <Border
+                        Padding="2"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        Classes.BingoBlueLetter="{Binding !#BlackoutToggle.IsChecked}"
+                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
+                        CornerRadius="2">
+                        <Label Margin="5,2">G</Label>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>46</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>47</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>48</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="4"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>49</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="5"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>50</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="6"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>51</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="7"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>52</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="8"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>53</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="9"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>54</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="10"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>55</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="11"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>56</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="12"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>57</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="13"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>58</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="14"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>59</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="3"
+                    Grid.Column="15"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>60</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Margin="2"
+                    StretchDirection="Both">
+                    <Border
+                        Padding="2"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
+                        Classes.BingoRedLetter="{Binding !#BlackoutToggle.IsChecked}"
+                        CornerRadius="2">
+                        <Label Margin="5,2">O</Label>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>61</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>62</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="3"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>63</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="4"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>64</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="5"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>65</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="6"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>66</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="7"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>67</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="8"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>68</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="9"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>69</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="10"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>70</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="11"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>71</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="12"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>72</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="13"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>73</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="14"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>74</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="4"
+                    Grid.Column="15"
+                    StretchDirection="Both">
+                    <Border
+                        Margin="2"
+                        Padding="2"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource TextControlBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ThemeVariantScope>
+                            <Label>75</Label>
+                        </ThemeVariantScope>
+                    </Border>
+                </Viewbox>
+                <Grid
+                    Grid.Row="5"
+                    Grid.ColumnSpan="16"
+                    HorizontalAlignment="Stretch"
+					Height="100"
+                    ColumnDefinitions="auto,*,auto">
+                    <!--  the lable is to keep the blackout toggle cencered  -->
+                    <Label Width="{Binding ElementName=btnClear, Path=Bounds.Width}" />
+                    <Viewbox
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        StretchDirection="Both">
+                        <ToggleSwitch
+                            x:Name="BlackoutToggle"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center">
+                            <ToggleSwitch.OffContent>
+                                <TextBlock FontSize="20">
+                                    Normal Rules
+                                </TextBlock>
+                            </ToggleSwitch.OffContent>
+                            <ToggleSwitch.OnContent>
+                                <TextBlock
+                                    FontSize="40"
+                                    FontStyle="Oblique"
+                                    FontWeight="Bold">
+                                    BLACKOUT
+                                </TextBlock>
+                            </ToggleSwitch.OnContent>
+                        </ToggleSwitch>
+                    </Viewbox>
+                    <Button
+                        Name="btnClear"
+                        Grid.Column="2"
+                        Margin="5"
+                        Padding="10,5"
+                        HorizontalAlignment="Right"
+                        Click="BtnClear_Click"
+                        FontSize="20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Path
+                                Grid.Column="0"
+                                Height="20"
+                                Margin="10,5"
+                                Data="{StaticResource reloadIcon}"
+                                Fill="{DynamicResource SystemBaseHighColor}"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="10,5"
+                                Text="Clear / Start Over" />
+                        </Grid>
+                    </Button>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <strong> Type text here to collect the key events for each single symbol:</strong> <br>
+    <input type="text" id="myTextField" autocapitalize="none" spellcheck="false"></input><br>
+    <br>
+    <strong> Active modifier keys:</strong>
+    <div id="activeModifiersField"></div>
+    <strong> Last recorded key events:</strong>
+    <div id="lastInputField"></div>
+    <strong> Last recorded symbol:</strong>
+    <div id="lastInputSymbolField"></div><br>
+    <strong>Generated source code for the mapping of a symbol to the key events:</strong><br>
+    function getKeyEventDataForCharacter(/** @type {string} */ c)<br />
+    {<br />
+    &nbsp;&nbsp;switch (c)<br />
+    &nbsp;&nbsp;{<br />
+    <div id="collectedKeys"></div>
+    &nbsp;&nbsp;}<br />
+    }
+    <script>
+        /// @ts-check
+        const keyTables = {
+            charToEvents: {
+
+            },
+        };
+
+        function getModifiers(/** @type {KeyboardEvent} */ args) {
+            let modifiers = 0;
+
+            if (args.altKey) { modifiers |= 1; }
+            if (args.ctrlKey) { modifiers |= 2; }
+            if (args.shiftKey) { modifiers |= 4; }
+            if (args.metaKey) { modifiers |= 8; }
+
+            return modifiers;
+        }
+
+        (function () {
+            /** @type {HTMLInputElement | null} */
+            const myTextField = document.querySelector("input#myTextField");
+            if (!myTextField) return;
+
+            /** @type {HTMLDivElement | null} */
+            const collectedKeys = document.querySelector("div#collectedKeys");
+            if (!collectedKeys) return;
+
+            /** @type {HTMLDivElement | null} */
+            const activeModifiersField = document.querySelector("div#activeModifiersField");
+            if (!activeModifiersField) return;
+
+            /** @type {HTMLDivElement | null} */
+            const lastInputField = document.querySelector("div#lastInputField");
+            if (!lastInputField) return;
+
+            /** @type {HTMLDivElement | null} */
+            const lastInputSymbolField = document.querySelector("div#lastInputSymbolField");
+            if (!lastInputSymbolField) return;
+
+            var charToEvents = keyTables.charToEvents;
+
+            var activeModifiers = {
+
+            };
+
+            const buildCompactEvent = (/** @type {KeyboardEvent} */ args) => {
+                return {
+                    code: args.code,
+                    key: args.key,
+                    ctrlKey: args.ctrlKey || undefined,
+                    altKey: args.altKey || undefined,
+                    shiftKey: args.shiftKey || undefined,
+                    metaKey: args.metaKey || undefined,
+                }
+            }
+
+            /** @type {ReturnType<typeof buildCompactEvent> | null} */
+            var lastInputDownEvent = null;
+            /** @type {ReturnType<typeof buildCompactEvent> | null} */
+            var lastInputUpEvent = null;
+            /** @type {string | null} */
+            var lastInputSymbol = null;
+
+            function isModifierKey(/** @type {KeyboardEvent} */ args) {
+                return (args.key === 'Control' && args.code === 'ControlLeft')
+                    || (args.key === 'Control' && args.code === 'ControlRight')
+                    || (args.key === 'Control' && args.code === 'ControlRight')
+                    || (args.key === 'Alt' && args.code === 'AltLeft')
+                    || (args.key === 'AltGraph' && args.code === 'AltRight')
+                    || (args.key === 'Shift' && args.code === 'ShiftLeft')
+                    || (args.key === 'Shift' && args.code === 'ShiftRight')
+                    || (args.key === 'Meta' && args.code === 'MetaLeft')
+                    || (args.key === 'Meta' && args.code === 'MetaRight');
+            }
+
+            myTextField.addEventListener("beforeinput", (args) => {
+
+            });
+
+            const fillActiveModifiersField = () => {
+                activeModifiersField.textContent = JSON.stringify(activeModifiers);
+            }
+
+            const fillLastInputField = () => {
+                lastInputField.textContent = JSON.stringify({ "down": lastInputDownEvent, "up": lastInputUpEvent });
+            }
+
+            const fillLastInputSymbolField = () => {
+                lastInputSymbolField.textContent = JSON.stringify(lastInputSymbol);
+            }
+
+            fillLastInputField();
+            fillActiveModifiersField();
+            fillLastInputSymbolField();
+
+            const registerCombinationIfComplete = () => {
+                if (lastInputUpEvent === null || lastInputDownEvent === null || lastInputSymbol === null) {
+                    return;
+                }
+
+                if (!charToEvents[lastInputSymbol]) {
+                    const entry = {
+                        activeModifiers,
+                        downEvent: lastInputDownEvent,
+                        upEvent: lastInputUpEvent,
+                    };
+                    charToEvents[lastInputSymbol] = entry;
+                    const entryElement = document.createElement("span");
+                    entryElement.textContent = `case "${lastInputSymbol}": return ${JSON.stringify(entry)};`;
+                    entryElement.innerHTML += "<br>";
+                    collectedKeys.appendChild(entryElement);
+                }
+
+                lastInputUpEvent = null;
+                lastInputDownEvent = null;
+                lastInputSymbol = null;
+            }
+
+            myTextField.addEventListener("keydown", args => {
+                if (isModifierKey(args)) {
+                    activeModifiers[`${args.key}|${args.code}`] = buildCompactEvent(args);
+                    fillActiveModifiersField();
+                }
+                else {
+                    lastInputDownEvent = buildCompactEvent(args);
+                    lastInputUpEvent = null;
+                    fillLastInputField();
+                }
+            });
+            myTextField.addEventListener("keyup", args => {
+                if (isModifierKey(args)) {
+                    delete activeModifiers[`${args.key}|${args.code}`];
+                    fillActiveModifiersField();
+                }
+                else {
+                    lastInputUpEvent = buildCompactEvent(args);
+                    fillLastInputField();
+                    registerCombinationIfComplete();
+                }
+            });
+            myTextField.addEventListener("compositionstart", args => {
+
+            });
+            myTextField.addEventListener("compositionupdate", args => {
+
+            });
+            myTextField.addEventListener("compositionend", args => {
+
+            });
+            myTextField.addEventListener("change", args => {
+
+            });
+            myTextField.addEventListener("input", (/** @type {InputEvent} */ args) => {
+                if (args.inputType === "insertText") {
+                    lastInputSymbol = args.data;
+                    fillLastInputSymbolField();
+                    registerCombinationIfComplete();
+                }
+            });
+
+            const logInputEvents = (/** @type {HTMLInputElement} */ inputElement) => {
+                inputElement.addEventListener("beforeinput", (args) => {
+                    console.log("beforeinput", args);
+                });
+                inputElement.addEventListener("keydown", args => {
+                    console.log("keydown", args);
+                });
+                inputElement.addEventListener("keyup", args => {
+                    console.log("keyup", args);
+                });
+                inputElement.addEventListener("compositionstart", args => {
+                    console.log("compositionstart", args);
+                });
+                inputElement.addEventListener("compositionupdate", args => {
+                    console.log("compositionupdate", args);
+                });
+                inputElement.addEventListener("compositionend", args => {
+                    console.log("compositionend", args);
+                });
+                inputElement.addEventListener("change", args => {
+                    console.log("change", args);
+                });
+                inputElement.addEventListener("input", args => {
+                    console.log("input", args);
+                });
+            }
+
+            const logModifiers = (/** @type {HTMLInputElement} */ inputElement) => {
+                inputElement.addEventListener("keydown", args => {
+                    console.log("keydown", buildCompactEvent(args));
+                });
+                inputElement.addEventListener("keyup", args => {
+                    console.log("keyup", buildCompactEvent(args));
+                });
+            }
+
+            logInputEvents(myTextField);
+            logModifiers(myTextField);
+        })();
+    </script>
+</body>
+
+</html>
