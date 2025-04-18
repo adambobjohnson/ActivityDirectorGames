@@ -21,7 +21,7 @@ public partial class TombolaView : UserControl
         InitializeComponent();
         //string familyName = ConfigurationManager.AppSettings["font-family"].ToString();
         this.dispatcherTimer.Tick += new EventHandler(this.DispatcherTimer_Tick);
-        this.dispatcherTimer.Interval = TimeSpan.FromSeconds(10);
+        this.dispatcherTimer.Interval = TimeSpan.FromSeconds(8);
         //this.FontFamily = new FontFamily(familyName);
         this.Round = 1;
         this.btnPrevRound.Click += BtnPrevRound_Click;

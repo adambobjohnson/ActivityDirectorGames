@@ -8,7 +8,7 @@
 	  <WasmDebugLevel>5</WasmDebugLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia.Browser.Blazor" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Browser.Blazor" Version="11.3.0-beta2" />
   </ItemGroup>
 
   <ItemGroup>

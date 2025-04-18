@@ -50,21 +50,56 @@
             ColumnDefinitions="auto,*"
             ZIndex="1">
             <Viewbox Grid.Column="0">
-                <StackPanel
-                    VerticalAlignment="Center"
-                    IsVisible="{Binding ElementName=BlackoutToggle, Path=IsChecked}"
-                    TextElement.FontWeight="Bold">
-                    <Label>B</Label>
-                    <Label>L</Label>
-                    <Label>A</Label>
-                    <Label>C</Label>
-                    <Label>K</Label>
-                    <Label />
-                    <Label>O</Label>
-                    <Label>U</Label>
-                    <Label>T</Label>
-                    <Label />
-                </StackPanel>
+                <Grid>
+                    <StackPanel
+                        x:Name="BlackoutStack"
+                        VerticalAlignment="Center"
+                        IsVisible="False"
+                        TextElement.FontWeight="Bold">
+                        <Label>B</Label>
+                        <Label>L</Label>
+                        <Label>A</Label>
+                        <Label>C</Label>
+                        <Label>K</Label>
+                        <Label />
+                        <Label>O</Label>
+                        <Label>U</Label>
+                        <Label>T</Label>
+                        <Label />
+                    </StackPanel>
+                    <StackPanel
+                        x:Name="OddsStack"
+                        VerticalAlignment="Center"
+                        IsVisible="False"
+                        TextElement.FontWeight="Bold">
+                        <Label>O</Label>
+                        <Label>D</Label>
+                        <Label>D</Label>
+                        <Label>S</Label>
+						<Label />
+						<Label />
+                        <Label >F</Label>
+						<Label >R</Label>
+						<Label >E</Label>
+						<Label >E</Label>
+                    </StackPanel>
+                    <StackPanel
+                        x:Name="EvensStack"
+                        VerticalAlignment="Center"
+                        IsVisible="False"
+                        TextElement.FontWeight="Bold">
+                        <Label>E</Label>
+                        <Label>V</Label>
+                        <Label>E</Label>
+                        <Label>N</Label>
+                        <Label>S</Label>
+						<Label />
+						<Label >F</Label>
+						<Label >R</Label>
+						<Label >E</Label>
+						<Label >E</Label>
+                    </StackPanel>
+                </Grid>
             </Viewbox>
             <Grid
                 Name="gameBoard"
@@ -94,7 +129,10 @@
                     <RowDefinition Height="2*" />
                     <RowDefinition Height="2*" />
                     <RowDefinition Height="2*" />
-                    <RowDefinition Height="*" MinHeight="60" MaxHeight="125" />
+                    <RowDefinition
+                        Height="*"
+                        MinHeight="60"
+                        MaxHeight="125" />
                 </Grid.RowDefinitions>
                 <Viewbox
                     Grid.Row="0"
@@ -102,11 +140,10 @@
                     Margin="2"
                     StretchDirection="Both">
                     <Border
+                        x:Name="BorderB"
                         Padding="2"
                         Background="Transparent"
                         BorderThickness="1"
-                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
-                        Classes.BingoRedLetter="{Binding !#BlackoutToggle.IsChecked}"
                         CornerRadius="2">
                         <Label Margin="6,2">B</Label>
                     </Border>
@@ -357,12 +394,11 @@
                     Margin="2"
                     StretchDirection="Both">
                     <Border
+                        x:Name="BorderI"
                         Padding="2"
                         HorizontalAlignment="Stretch"
                         Background="Transparent"
                         BorderThickness="1"
-                        Classes.BingoBlueLetter="{Binding !#BlackoutToggle.IsChecked}"
-                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
                         CornerRadius="2">
                         <Label Margin="9,2" HorizontalAlignment="Stretch">I</Label>
                     </Border>
@@ -613,11 +649,10 @@
                     Margin="2"
                     StretchDirection="Both">
                     <Border
+                        x:Name="BorderN"
                         Padding="2"
                         Background="Transparent"
                         BorderThickness="1"
-                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
-                        Classes.BingoRedLetter="{Binding !#BlackoutToggle.IsChecked}"
                         CornerRadius="2">
                         <Label Margin="5,2">N</Label>
                     </Border>
@@ -868,11 +903,10 @@
                     Margin="2"
                     StretchDirection="Both">
                     <Border
+                        x:Name="BorderG"
                         Padding="2"
                         Background="Transparent"
                         BorderThickness="1"
-                        Classes.BingoBlueLetter="{Binding !#BlackoutToggle.IsChecked}"
-                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
                         CornerRadius="2">
                         <Label Margin="5,2">G</Label>
                     </Border>
@@ -1123,11 +1157,10 @@
                     Margin="2"
                     StretchDirection="Both">
                     <Border
+                        x:Name="BorderO"
                         Padding="2"
                         Background="Transparent"
                         BorderThickness="1"
-                        Classes.BingoIsBlackout="{Binding #BlackoutToggle.IsChecked}"
-                        Classes.BingoRedLetter="{Binding !#BlackoutToggle.IsChecked}"
                         CornerRadius="2">
                         <Label Margin="5,2">O</Label>
                     </Border>
@@ -1375,35 +1408,19 @@
                 <Grid
                     Grid.Row="5"
                     Grid.ColumnSpan="16"
+                    Height="100"
                     HorizontalAlignment="Stretch"
-					Height="100"
                     ColumnDefinitions="auto,*,auto">
-                    <!--  the lable is to keep the blackout toggle cencered  -->
+                    <!--  The label is to keep the mode selector centered  -->
                     <Label Width="{Binding ElementName=btnClear, Path=Bounds.Width}" />
-                    <Viewbox
-                        Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        StretchDirection="Both">
-                        <ToggleSwitch
-                            x:Name="BlackoutToggle"
+                        <ComboBox
+							Grid.Column="1"
+                            x:Name="ModeSelector"
+							HorizontalAlignment="Center"
                             Margin="5"
+							FontSize="20"
                             VerticalAlignment="Center"
-                            VerticalContentAlignment="Center">
-                            <ToggleSwitch.OffContent>
-                                <TextBlock FontSize="20">
-                                    Normal Rules
-                                </TextBlock>
-                            </ToggleSwitch.OffContent>
-                            <ToggleSwitch.OnContent>
-                                <TextBlock
-                                    FontSize="40"
-                                    FontStyle="Oblique"
-                                    FontWeight="Bold">
-                                    BLACKOUT
-                                </TextBlock>
-                            </ToggleSwitch.OnContent>
-                        </ToggleSwitch>
-                    </Viewbox>
+                            SelectionChanged="ModeSelector_SelectionChanged" />
                     <Button
                         Name="btnClear"
                         Grid.Column="2"
@@ -1431,7 +1448,6 @@
                         </Grid>
                     </Button>
                 </Grid>
-
             </Grid>
         </Grid>
     </Grid>
