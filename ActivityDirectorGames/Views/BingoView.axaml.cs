@@ -32,9 +32,8 @@ public partial class BingoView : UserControl
         UpdateLetterBorders(GameMode.Normal); // Set initial letter border styles
         MarkNumbersBasedOnMode(GameMode.Normal); // Mark numbers based on initial mode
 
-        string str = "10";
         this.dispatcherTimer.Tick += new EventHandler(this.DispatcherTimer_Tick);
-        this.dispatcherTimer.Interval = TimeSpan.FromSeconds((double)Convert.ToInt32(str));
+        this.dispatcherTimer.Interval = TimeSpan.FromSeconds(10);
     }
 
     private void DispatcherTimer_Tick(object? sender, EventArgs e)

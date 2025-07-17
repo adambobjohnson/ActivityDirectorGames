@@ -161,7 +161,13 @@ public partial class WheelOfFortuneView : UserControl
 
     internal string GetCombinedRawPuzzleString()
     {
-        return (model.CurrentRound?.RowOneText + model.CurrentRound?.RowTwoText + model.CurrentRound?.RowThreeText + model.CurrentRound?.RowFourText) ?? "";
+        if (model?.CurrentRound == null)
+            return "";
+            
+        return (model.CurrentRound.RowOneText ?? "") + 
+               (model.CurrentRound.RowTwoText ?? "") + 
+               (model.CurrentRound.RowThreeText ?? "") + 
+               (model.CurrentRound.RowFourText ?? "");
     }
 
     private async Task RevealLetters()
@@ -191,7 +197,7 @@ public partial class WheelOfFortuneView : UserControl
             {
                 // highlight any characters that were played already...
                 var letter = label.Content as string;
-                if (letter == null) return;
+                if (letter == null) continue; // Changed from return to continue to avoid early exit
 
                 letter = letter.ToUpper();
 
