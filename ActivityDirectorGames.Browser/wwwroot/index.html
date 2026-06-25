@@ -5,6 +5,11 @@
     <title>Activity Director Games</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1b2a4e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Activity Director Games">
+    <link rel="canonical" href="https://activitydirectorgames.com/" />
     <base href="/" />
     <link rel="modulepreload" href="./main.js" />
     <link rel="modulepreload" href="./_framework/dotnet.js" />
@@ -30,7 +35,11 @@
         </div>
     </div>
     <script type='module' src="./main.js"></script>
-	<script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script>
+        if ('serviceWorker' in navigator && window.isSecureContext) {
+            navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
+        }
+    </script>
 </body>
 
 </html>

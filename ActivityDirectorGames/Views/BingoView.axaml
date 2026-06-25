@@ -43,6 +43,20 @@
                     <Label x:Name="SelectedNumber" Margin="10,2" />
                 </Border>
             </Viewbox>
+            <Button
+                Name="btnCancelSelection"
+                Margin="5"
+                Padding="10,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Click="CancelSelection_Click"
+                ToolTip.Tip="Cancel current selection">
+                <Path
+                    Height="20"
+                    Data="{StaticResource cancelCircleIcon}"
+                    Fill="{DynamicResource SystemBaseHighColor}"
+                    Stretch="Uniform" />
+            </Button>
         </Grid>
         <Grid
             HorizontalAlignment="Stretch"

@@ -1,9 +1,12 @@
 {
   "name": "Activity Director Games",
-  "short_name": "ActivityDirectorGames",
-  "id": "./",
-  "start_url": "./",
+  "short_name": "AD Games",
+  "description": "Bingo, Pokeno, Tombola, and Wheel of Fortune for activity directors.",
+  "id": "https://activitydirectorgames.com/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#e8f2fb",
   "theme_color": "#1b2a4e",
   "prefer_related_applications": false,
@@ -11,12 +14,14 @@
     {
       "src": "icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any"
     },
     {
       "src": "icon-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any"
     }
   ]
 }

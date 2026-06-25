@@ -6,6 +6,7 @@ using System;
 using Avalonia.VisualTree;
 using System.Linq;
 using Avalonia.Styling;
+using ActivityDirectorGames.Utilities;
 
 namespace ActivityDirectorGames.Views;
 
@@ -41,6 +42,26 @@ public partial class BingoView : UserControl
     {
         this.SelectedNumberPanel.IsVisible = false;
         this.dispatcherTimer.Stop();
+    }
+
+    private void CancelSelection_Click(object? sender, RoutedEventArgs e)
+    {
+        CancelCurrentSelection();
+    }
+
+    private void CancelCurrentSelection()
+    {
+        this.dispatcherTimer.Stop();
+        this.SelectedNumberPanel.IsVisible = false;
+        this.SelectedNumber.Content = null;
+
+        var selectedMode = (GameMode)ModeSelector.SelectedItem;
+        CallingGameSelectionHelper.ClearYellowSelection(
+            this,
+            label => CallingGameSelectionHelper.GetBingoRestoredBackground(
+                label,
+                selectedMode,
+                this.selectedBrush));
     }
 
     private void ModeSelector_SelectionChanged(object? sender, SelectionChangedEventArgs e)

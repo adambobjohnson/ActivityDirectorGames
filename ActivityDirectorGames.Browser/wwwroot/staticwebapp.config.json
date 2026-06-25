@@ -1,0 +1,18 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/_framework/*",
+      "/*.{css,scss,js,png,gif,ico,jpg,jpeg,svg,woff,woff2,mp4,webmanifest,wasm,json,br,dll,pdb,dat,blat}"
+    ]
+  },
+  "mimeTypes": {
+    ".wasm": "application/wasm",
+    ".webmanifest": "application/manifest+json",
+    ".br": "application/octet-stream"
+  },
+  "globalHeaders": {
+    "Content-Security-Policy": "upgrade-insecure-requests",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
+  }
+}

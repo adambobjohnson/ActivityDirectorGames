@@ -9,6 +9,7 @@ using System;
 using Avalonia.VisualTree;
 using System.Linq;
 using Avalonia.Styling;
+using ActivityDirectorGames.Utilities;
 
 namespace ActivityDirectorGames.Views;
 
@@ -51,6 +52,19 @@ public partial class PokenoView : UserControl
     {
         this.SelectedNumberPanel.IsVisible = false;
         this.dispatcherTimer.Stop();
+    }
+
+    private void CancelSelection_Click(object? sender, RoutedEventArgs e)
+    {
+        CancelCurrentSelection();
+    }
+
+    private void CancelCurrentSelection()
+    {
+        this.dispatcherTimer.Stop();
+        this.SelectedNumberPanel.IsVisible = false;
+        this.SelectedCard.Content = null;
+        CallingGameSelectionHelper.ClearYellowSelection(this);
     }
 
 

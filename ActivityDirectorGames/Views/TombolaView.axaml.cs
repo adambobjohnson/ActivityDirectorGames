@@ -11,6 +11,7 @@ using MsBox.Avalonia;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
 using System.Linq;
+using ActivityDirectorGames.Utilities;
 
 namespace ActivityDirectorGames.Views;
 
@@ -159,6 +160,19 @@ public partial class TombolaView : UserControl
     {
         this.SelectedNumberPanel.IsVisible = false;
         this.dispatcherTimer.Stop();
+    }
+
+    private void CancelSelection_Click(object? sender, RoutedEventArgs e)
+    {
+        CancelCurrentSelection();
+    }
+
+    private void CancelCurrentSelection()
+    {
+        this.dispatcherTimer.Stop();
+        this.SelectedNumberPanel.IsVisible = false;
+        this.SelectedNumber.Content = null;
+        CallingGameSelectionHelper.ClearYellowSelection(this);
     }
 
 
