@@ -1,3 +1,4 @@
+using ActivityDirectorGames.Utilities;
 using ActivityDirectorGames.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
@@ -36,6 +37,31 @@ public partial class WheelOfFortuneView : UserControl
         this.dispatcherTimer.Interval = TimeSpan.FromSeconds(3);
 
         model.Rounds.CollectionChanged += Rounds_CollectionChanged;
+
+        // Apply keyboard workaround for browser deployment
+        if (OperatingSystem.IsBrowser() || OperatingSystem.IsWasi())
+        {
+            ApplyMobileKeyboardWorkaround();
+        }
+        
+    }
+
+    private void ApplyMobileKeyboardWorkaround()
+    {
+        // List all TextBox controls from the setup screen
+        var textBoxes = new[]
+            {
+                this.FirstRowTextBox,
+                this.SecondRowTextBox, // Row Two
+                this.ThirdRowTextBox, // Row Three
+                this.FourthRowTextBox, // Row Four
+                this.TitleTextBox  // Title
+            }.Where(tb => tb != null).ToArray();
+
+        foreach (var textBox in textBoxes)
+        {
+            TextBoxMobileKeyboardWorkaround.SetReportSelectionChangedToBrowser(textBox, true);
+        }
     }
 
     private void Rounds_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

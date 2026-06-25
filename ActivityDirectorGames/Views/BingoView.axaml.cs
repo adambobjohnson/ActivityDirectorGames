@@ -90,6 +90,11 @@ public partial class BingoView : UserControl
                     bool isOdd = number % 2 != 0;
                     bool shouldMark = (mode == GameMode.Odds && isOdd) || (mode == GameMode.Evens && !isOdd);
                     childBorder.Background = shouldMark ? selectedBrush : Brushes.Transparent;
+                    if (child.FindAncestorOfType<ThemeVariantScope>() is ThemeVariantScope thm)
+                    {
+
+                        thm.RequestedThemeVariant = shouldMark ? ThemeVariant.Light : ThemeVariant.Default;
+                    }
                 }
             }
         }

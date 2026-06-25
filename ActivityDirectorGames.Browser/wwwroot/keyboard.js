@@ -48,10 +48,9 @@ export function initialize(/** @type {RuntimeAPI} */ dotnetRuntime) {
         setInterval(updateTouchAction, 300);
     })();
 
-
     (function () {
         const charsToKeyEvents = (() => {
-            function germanKeybindings(/** @type {String} */ text) {
+            function usEnglishKeybindings(/** @type {String} */ text) {
                 /**
                  * @param {string} c
                  * @typedef {{code: string, key: string, shiftKey?: boolean, ctrlKey?: boolean, altKey?: boolean, metaKey?: boolean}} UpDownEventData
@@ -61,7 +60,6 @@ export function initialize(/** @type {RuntimeAPI} */ dotnetRuntime) {
                 function getKeyEventDataForCharacter(c) {
                     switch (c) {
                         // Number row
-                        case "^": return { "activeModifiers": {}, "downEvent": { "code": "Backquote", "key": "Dead" }, "upEvent": { "code": "Backquote", "key": "Dead" } };
                         case "1": return { "activeModifiers": {}, "downEvent": { "code": "Digit1", "key": "1" }, "upEvent": { "code": "Digit1", "key": "1" } };
                         case "2": return { "activeModifiers": {}, "downEvent": { "code": "Digit2", "key": "2" }, "upEvent": { "code": "Digit2", "key": "2" } };
                         case "3": return { "activeModifiers": {}, "downEvent": { "code": "Digit3", "key": "3" }, "upEvent": { "code": "Digit3", "key": "3" } };
@@ -72,63 +70,37 @@ export function initialize(/** @type {RuntimeAPI} */ dotnetRuntime) {
                         case "8": return { "activeModifiers": {}, "downEvent": { "code": "Digit8", "key": "8" }, "upEvent": { "code": "Digit8", "key": "8" } };
                         case "9": return { "activeModifiers": {}, "downEvent": { "code": "Digit9", "key": "9" }, "upEvent": { "code": "Digit9", "key": "9" } };
                         case "0": return { "activeModifiers": {}, "downEvent": { "code": "Digit0", "key": "0" }, "upEvent": { "code": "Digit0", "key": "0" } };
-                        case "ß": return { "activeModifiers": {}, "downEvent": { "code": "Minus", "key": "ß" }, "upEvent": { "code": "Minus", "key": "ß" } };
-                        case "´": return { "activeModifiers": {}, "downEvent": { "code": "Equal", "key": "Dead" }, "upEvent": { "code": "Equal", "key": "Dead" } };
+                        case "-": return { "activeModifiers": {}, "downEvent": { "code": "Minus", "key": "-" }, "upEvent": { "code": "Minus", "key": "-" } };
+                        case "=": return { "activeModifiers": {}, "downEvent": { "code": "Equal", "key": "=" }, "upEvent": { "code": "Equal", "key": "=" } };
 
-                        case "°": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Backquote", "key": "°", "shiftKey": true }, "upEvent": { "code": "Backquote", "key": "°", "shiftKey": true } };
                         case "!": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit1", "key": "!", "shiftKey": true }, "upEvent": { "code": "Digit1", "key": "!", "shiftKey": true } };
-                        case "\"": return { "activeModifiers": { "Shift | ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit2", "key": "\"", "shiftKey": true }, "upEvent": { "code": "Digit2", "key": "\"", "shiftKey": true } };
-                        case "§": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit3", "key": "§", "shiftKey": true }, "upEvent": { "code": "Digit3", "key": "§", "shiftKey": true } };
+                        case "@": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit2", "key": "@", "shiftKey": true }, "upEvent": { "code": "Digit2", "key": "@", "shiftKey": true } };
+                        case "#": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit3", "key": "#", "shiftKey": true }, "upEvent": { "code": "Digit3", "key": "#", "shiftKey": true } };
                         case "$": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit4", "key": "$", "shiftKey": true }, "upEvent": { "code": "Digit4", "key": "$", "shiftKey": true } };
                         case "%": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit5", "key": "%", "shiftKey": true }, "upEvent": { "code": "Digit5", "key": "%", "shiftKey": true } };
-                        case "&": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit6", "key": "&", "shiftKey": true }, "upEvent": { "code": "Digit6", "key": "&", "shiftKey": true } };
-                        case "/": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit7", "key": "/", "shiftKey": true }, "upEvent": { "code": "Digit7", "key": "/", "shiftKey": true } };
-                        case "(": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit8", "key": "(", "shiftKey": true }, "upEvent": { "code": "Digit8", "key": "(", "shiftKey": true } };
-                        case ")": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit9", "key": ")", "shiftKey": true }, "upEvent": { "code": "Digit9", "key": ")", "shiftKey": true } };
-                        case "=": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit0", "key": "=", "shiftKey": true }, "upEvent": { "code": "Digit0", "key": "=", "shiftKey": true } };
-                        case "?": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Minus", "key": "?", "shiftKey": true }, "upEvent": { "code": "Minus", "key": "?", "shiftKey": true } };
-                        case "`": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Equal", "key": "Dead", "shiftKey": true }, "upEvent": { "code": "Equal", "key": "Dead", "shiftKey": true } };
+                        case "^": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit6", "key": "^", "shiftKey": true }, "upEvent": { "code": "Digit6", "key": "^", "shiftKey": true } };
+                        case "&": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit7", "key": "&", "shiftKey": true }, "upEvent": { "code": "Digit7", "key": "&", "shiftKey": true } };
+                        case "*": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit8", "key": "*", "shiftKey": true }, "upEvent": { "code": "Digit8", "key": "*", "shiftKey": true } };
+                        case "(": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit9", "key": "(", "shiftKey": true }, "upEvent": { "code": "Digit9", "key": "(", "shiftKey": true } };
+                        case ")": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Digit0", "key": ")", "shiftKey": true }, "upEvent": { "code": "Digit0", "key": ")", "shiftKey": true } };
+                        case "_": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Minus", "key": "_", "shiftKey": true }, "upEvent": { "code": "Minus", "key": "_", "shiftKey": true } };
+                        case "+": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Equal", "key": "+", "shiftKey": true }, "upEvent": { "code": "Equal", "key": "+", "shiftKey": true } };
 
-                        case "²": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "Digit2", "key": "2" }, "upEvent": { "code": "Digit2", "key": "2" } };
-                        case "³": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "Digit3", "key": "³" }, "upEvent": { "code": "Digit3", "key": "3" } };
-                        case "{": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "Digit7", "key": "{" }, "upEvent": { "code": "Digit7", "key": "7" } };
-                        case "[": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "Digit8", "key": "[" }, "upEvent": { "code": "Digit8", "key": "8" } };
-                        case "]": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "Digit9", "key": "]" }, "upEvent": { "code": "Digit9", "key": "9" } };
-                        case "}": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "Digit0", "key": "}" }, "upEvent": { "code": "Digit0", "key": "0" } };
-                        case "\\": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "Minus", "key": "\\" }, "upEvent": { "code": "Minus", "key": "ß" } };
-
-                        // 1.  Letter row
+                        // Letter rows (QWERTY layout)
                         case "q": return { "activeModifiers": {}, "downEvent": { "code": "KeyQ", "key": "q" }, "upEvent": { "code": "KeyQ", "key": "q" } };
                         case "w": return { "activeModifiers": {}, "downEvent": { "code": "KeyW", "key": "w" }, "upEvent": { "code": "KeyW", "key": "w" } };
                         case "e": return { "activeModifiers": {}, "downEvent": { "code": "KeyE", "key": "e" }, "upEvent": { "code": "KeyE", "key": "e" } };
                         case "r": return { "activeModifiers": {}, "downEvent": { "code": "KeyR", "key": "r" }, "upEvent": { "code": "KeyR", "key": "r" } };
                         case "t": return { "activeModifiers": {}, "downEvent": { "code": "KeyT", "key": "t" }, "upEvent": { "code": "KeyT", "key": "t" } };
-                        case "z": return { "activeModifiers": {}, "downEvent": { "code": "KeyY", "key": "z" }, "upEvent": { "code": "KeyY", "key": "z" } };
+                        case "y": return { "activeModifiers": {}, "downEvent": { "code": "KeyY", "key": "y" }, "upEvent": { "code": "KeyY", "key": "y" } };
                         case "u": return { "activeModifiers": {}, "downEvent": { "code": "KeyU", "key": "u" }, "upEvent": { "code": "KeyU", "key": "u" } };
                         case "i": return { "activeModifiers": {}, "downEvent": { "code": "KeyI", "key": "i" }, "upEvent": { "code": "KeyI", "key": "i" } };
                         case "o": return { "activeModifiers": {}, "downEvent": { "code": "KeyO", "key": "o" }, "upEvent": { "code": "KeyO", "key": "o" } };
                         case "p": return { "activeModifiers": {}, "downEvent": { "code": "KeyP", "key": "p" }, "upEvent": { "code": "KeyP", "key": "p" } };
-                        case "ü": return { "activeModifiers": {}, "downEvent": { "code": "BracketLeft", "key": "ü" }, "upEvent": { "code": "BracketLeft", "key": "ü" } };
-                        case "+": return { "activeModifiers": {}, "downEvent": { "code": "BracketRight", "key": "+" }, "upEvent": { "code": "BracketRight", "key": "+" } };
+                        case "[": return { "activeModifiers": {}, "downEvent": { "code": "BracketLeft", "key": "[" }, "upEvent": { "code": "BracketLeft", "key": "[" } };
+                        case "]": return { "activeModifiers": {}, "downEvent": { "code": "BracketRight", "key": "]" }, "upEvent": { "code": "BracketRight", "key": "]" } };
+                        case "\\": return { "activeModifiers": {}, "downEvent": { "code": "Backslash", "key": "\\" }, "upEvent": { "code": "Backslash", "key": "\\" } };
 
-                        case "Q": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyQ", "key": "Q", "shiftKey": true }, "upEvent": { "code": "KeyQ", "key": "Q", "shiftKey": true } };
-                        case "W": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyW", "key": "W", "shiftKey": true }, "upEvent": { "code": "KeyW", "key": "W", "shiftKey": true } };
-                        case "E": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyE", "key": "E", "shiftKey": true }, "upEvent": { "code": "KeyE", "key": "E", "shiftKey": true } };
-                        case "R": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyR", "key": "R", "shiftKey": true }, "upEvent": { "code": "KeyR", "key": "R", "shiftKey": true } };
-                        case "T": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyT", "key": "T", "shiftKey": true }, "upEvent": { "code": "KeyT", "key": "T", "shiftKey": true } };
-                        case "Z": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyY", "key": "Z", "shiftKey": true }, "upEvent": { "code": "KeyY", "key": "Z", "shiftKey": true } };
-                        case "U": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyU", "key": "U", "shiftKey": true }, "upEvent": { "code": "KeyU", "key": "U", "shiftKey": true } };
-                        case "I": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyI", "key": "I", "shiftKey": true }, "upEvent": { "code": "KeyI", "key": "I", "shiftKey": true } };
-                        case "O": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyO", "key": "O", "shiftKey": true }, "upEvent": { "code": "KeyO", "key": "O", "shiftKey": true } };
-                        case "P": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyP", "key": "P", "shiftKey": true }, "upEvent": { "code": "KeyP", "key": "P", "shiftKey": true } };
-                        case "Ü": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "BracketLeft", "key": "Ü", "shiftKey": true }, "upEvent": { "code": "BracketLeft", "key": "Ü", "shiftKey": true } };
-                        case "*": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "BracketRight", "key": "*", "shiftKey": true }, "upEvent": { "code": "BracketRight", "key": "*", "shiftKey": true } };
-
-                        case "@": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "KeyQ", "key": "@" }, "upEvent": { "code": "KeyQ", "key": "q" } };
-                        case "€": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "KeyE", "key": "€" }, "upEvent": { "code": "KeyE", "key": "e" } };
-                        case "~": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "BracketRight", "key": "~" }, "upEvent": { "code": "BracketRight", "key": "+" } };
-
-                        // 2. Letter row
                         case "a": return { "activeModifiers": {}, "downEvent": { "code": "KeyA", "key": "a" }, "upEvent": { "code": "KeyA", "key": "a" } };
                         case "s": return { "activeModifiers": {}, "downEvent": { "code": "KeyS", "key": "s" }, "upEvent": { "code": "KeyS", "key": "s" } };
                         case "d": return { "activeModifiers": {}, "downEvent": { "code": "KeyD", "key": "d" }, "upEvent": { "code": "KeyD", "key": "d" } };
@@ -138,9 +110,34 @@ export function initialize(/** @type {RuntimeAPI} */ dotnetRuntime) {
                         case "j": return { "activeModifiers": {}, "downEvent": { "code": "KeyJ", "key": "j" }, "upEvent": { "code": "KeyJ", "key": "j" } };
                         case "k": return { "activeModifiers": {}, "downEvent": { "code": "KeyK", "key": "k" }, "upEvent": { "code": "KeyK", "key": "k" } };
                         case "l": return { "activeModifiers": {}, "downEvent": { "code": "KeyL", "key": "l" }, "upEvent": { "code": "KeyL", "key": "l" } };
-                        case "ö": return { "activeModifiers": {}, "downEvent": { "code": "Semicolon", "key": "ö" }, "upEvent": { "code": "Semicolon", "key": "ö" } };
-                        case "ä": return { "activeModifiers": {}, "downEvent": { "code": "Quote", "key": "ä" }, "upEvent": { "code": "Quote", "key": "ä" } };
-                        case "#": return { "activeModifiers": {}, "downEvent": { "code": "Backslash", "key": "#" }, "upEvent": { "code": "Backslash", "key": "#" } };
+                        case ";": return { "activeModifiers": {}, "downEvent": { "code": "Semicolon", "key": ";" }, "upEvent": { "code": "Semicolon", "key": ";" } };
+                        case "'": return { "activeModifiers": {}, "downEvent": { "code": "Quote", "key": "'" }, "upEvent": { "code": "Quote", "key": "'" } };
+
+                        case "z": return { "activeModifiers": {}, "downEvent": { "code": "KeyZ", "key": "z" }, "upEvent": { "code": "KeyZ", "key": "z" } };
+                        case "x": return { "activeModifiers": {}, "downEvent": { "code": "KeyX", "key": "x" }, "upEvent": { "code": "KeyX", "key": "x" } };
+                        case "c": return { "activeModifiers": {}, "downEvent": { "code": "KeyC", "key": "c" }, "upEvent": { "code": "KeyC", "key": "c" } };
+                        case "v": return { "activeModifiers": {}, "downEvent": { "code": "KeyV", "key": "v" }, "upEvent": { "code": "KeyV", "key": "v" } };
+                        case "b": return { "activeModifiers": {}, "downEvent": { "code": "KeyB", "key": "b" }, "upEvent": { "code": "KeyB", "key": "b" } };
+                        case "n": return { "activeModifiers": {}, "downEvent": { "code": "KeyN", "key": "n" }, "upEvent": { "code": "KeyN", "key": "n" } };
+                        case "m": return { "activeModifiers": {}, "downEvent": { "code": "KeyM", "key": "m" }, "upEvent": { "code": "KeyM", "key": "m" } };
+                        case ",": return { "activeModifiers": {}, "downEvent": { "code": "Comma", "key": "," }, "upEvent": { "code": "Comma", "key": "," } };
+                        case ".": return { "activeModifiers": {}, "downEvent": { "code": "Period", "key": "." }, "upEvent": { "code": "Period", "key": "." } };
+                        case "/": return { "activeModifiers": {}, "downEvent": { "code": "Slash", "key": "/" }, "upEvent": { "code": "Slash", "key": "/" } };
+
+                        // Shifted versions
+                        case "Q": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyQ", "key": "Q", "shiftKey": true }, "upEvent": { "code": "KeyQ", "key": "Q", "shiftKey": true } };
+                        case "W": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyW", "key": "W", "shiftKey": true }, "upEvent": { "code": "KeyW", "key": "W", "shiftKey": true } };
+                        case "E": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyE", "key": "E", "shiftKey": true }, "upEvent": { "code": "KeyE", "key": "E", "shiftKey": true } };
+                        case "R": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyR", "key": "R", "shiftKey": true }, "upEvent": { "code": "KeyR", "key": "R", "shiftKey": true } };
+                        case "T": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyT", "key": "T", "shiftKey": true }, "upEvent": { "code": "KeyT", "key": "T", "shiftKey": true } };
+                        case "Y": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyY", "key": "Y", "shiftKey": true }, "upEvent": { "code": "KeyY", "key": "Y", "shiftKey": true } };
+                        case "U": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyU", "key": "U", "shiftKey": true }, "upEvent": { "code": "KeyU", "key": "U", "shiftKey": true } };
+                        case "I": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyI", "key": "I", "shiftKey": true }, "upEvent": { "code": "KeyI", "key": "I", "shiftKey": true } };
+                        case "O": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyO", "key": "O", "shiftKey": true }, "upEvent": { "code": "KeyO", "key": "O", "shiftKey": true } };
+                        case "P": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyP", "key": "P", "shiftKey": true }, "upEvent": { "code": "KeyP", "key": "P", "shiftKey": true } };
+                        case "{": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "BracketLeft", "key": "{", "shiftKey": true }, "upEvent": { "code": "BracketLeft", "key": "{", "shiftKey": true } };
+                        case "}": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "BracketRight", "key": "}", "shiftKey": true }, "upEvent": { "code": "BracketRight", "key": "}", "shiftKey": true } };
+                        case "|": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Backslash", "key": "|", "shiftKey": true }, "upEvent": { "code": "Backslash", "key": "|", "shiftKey": true } };
 
                         case "A": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyA", "key": "A", "shiftKey": true }, "upEvent": { "code": "KeyA", "key": "A", "shiftKey": true } };
                         case "S": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyS", "key": "S", "shiftKey": true }, "upEvent": { "code": "KeyS", "key": "S", "shiftKey": true } };
@@ -151,37 +148,19 @@ export function initialize(/** @type {RuntimeAPI} */ dotnetRuntime) {
                         case "J": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyJ", "key": "J", "shiftKey": true }, "upEvent": { "code": "KeyJ", "key": "J", "shiftKey": true } };
                         case "K": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyK", "key": "K", "shiftKey": true }, "upEvent": { "code": "KeyK", "key": "K", "shiftKey": true } };
                         case "L": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyL", "key": "L", "shiftKey": true }, "upEvent": { "code": "KeyL", "key": "L", "shiftKey": true } };
-                        case "Ö": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Semicolon", "key": "Ö", "shiftKey": true }, "upEvent": { "code": "Semicolon", "key": "Ö", "shiftKey": true } };
-                        case "Ä": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Quote", "key": "Ä", "shiftKey": true }, "upEvent": { "code": "Quote", "key": "Ä", "shiftKey": true } };
-                        case "'": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Backslash", "key": "'", "shiftKey": true }, "upEvent": { "code": "Backslash", "key": "'", "shiftKey": true } };
+                        case ":": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Semicolon", "key": ":", "shiftKey": true }, "upEvent": { "code": "Semicolon", "key": ":", "shiftKey": true } };
+                        case "\"": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Quote", "key": "\"", "shiftKey": true }, "upEvent": { "code": "Quote", "key": "\"", "shiftKey": true } };
 
-                        // 3. Letter row
-                        case "<": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "IntlBackslash", "key": "<" }, "upEvent": { "code": "IntlBackslash", "key": "<" } };
-                        case "y": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "KeyZ", "key": "y" }, "upEvent": { "code": "KeyZ", "key": "y" } };
-                        case "x": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "KeyX", "key": "x" }, "upEvent": { "code": "KeyX", "key": "x" } };
-                        case "c": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "KeyC", "key": "c" }, "upEvent": { "code": "KeyC", "key": "c" } };
-                        case "v": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "KeyV", "key": "v" }, "upEvent": { "code": "KeyV", "key": "v" } };
-                        case "b": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "KeyB", "key": "b" }, "upEvent": { "code": "KeyB", "key": "b" } };
-                        case "n": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "KeyN", "key": "n" }, "upEvent": { "code": "KeyN", "key": "n" } };
-                        case "m": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "KeyM", "key": "m" }, "upEvent": { "code": "KeyM", "key": "m" } };
-                        case ",": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "Comma", "key": "," }, "upEvent": { "code": "Comma", "key": "," } };
-                        case ".": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "Period", "key": "." }, "upEvent": { "code": "Period", "key": "." } };
-                        case "-": return { "activeModifiers": { "Alt|AltLeft": { "code": "AltLeft", "key": "Alt", "altKey": true } }, "downEvent": { "code": "Slash", "key": "-" }, "upEvent": { "code": "Slash", "key": "-" } };
-
-                        case ">": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "IntlBackslash", "key": ">", "shiftKey": true }, "upEvent": { "code": "IntlBackslash", "key": ">", "shiftKey": true } };
-                        case "Y": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyZ", "key": "Y", "shiftKey": true }, "upEvent": { "code": "KeyZ", "key": "Y", "shiftKey": true } };
+                        case "Z": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyZ", "key": "Z", "shiftKey": true }, "upEvent": { "code": "KeyZ", "key": "Z", "shiftKey": true } };
                         case "X": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyX", "key": "X", "shiftKey": true }, "upEvent": { "code": "KeyX", "key": "X", "shiftKey": true } };
                         case "C": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyC", "key": "C", "shiftKey": true }, "upEvent": { "code": "KeyC", "key": "C", "shiftKey": true } };
                         case "V": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyV", "key": "V", "shiftKey": true }, "upEvent": { "code": "KeyV", "key": "V", "shiftKey": true } };
                         case "B": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyB", "key": "B", "shiftKey": true }, "upEvent": { "code": "KeyB", "key": "B", "shiftKey": true } };
                         case "N": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyN", "key": "N", "shiftKey": true }, "upEvent": { "code": "KeyN", "key": "N", "shiftKey": true } };
                         case "M": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "KeyM", "key": "M", "shiftKey": true }, "upEvent": { "code": "KeyM", "key": "M", "shiftKey": true } };
-                        case ";": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Comma", "key": ";", "shiftKey": true }, "upEvent": { "code": "Comma", "key": ";", "shiftKey": true } };
-                        case ":": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Period", "key": ":", "shiftKey": true }, "upEvent": { "code": "Period", "key": ":", "shiftKey": true } };
-                        case "_": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Slash", "key": "_", "shiftKey": true }, "upEvent": { "code": "Slash", "key": "_", "shiftKey": true } };
-
-                        case "|": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "IntlBackslash", "key": "|" }, "upEvent": { "code": "IntlBackslash", "key": "<" } };
-                        case "µ": return { "activeModifiers": { "Control|ControlLeft": { "code": "ControlLeft", "key": "Control", "ctrlKey": true }, "AltGraph|AltRight": { "code": "AltRight", "key": "AltGraph" } }, "downEvent": { "code": "KeyM", "key": "µ" }, "upEvent": { "code": "KeyM", "key": "m" } };
+                        case "<": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Comma", "key": "<", "shiftKey": true }, "upEvent": { "code": "Comma", "key": "<", "shiftKey": true } };
+                        case ">": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Period", "key": ">", "shiftKey": true }, "upEvent": { "code": "Period", "key": ">", "shiftKey": true } };
+                        case "?": return { "activeModifiers": { "Shift|ShiftLeft": { "code": "ShiftLeft", "key": "Shift", "shiftKey": true } }, "downEvent": { "code": "Slash", "key": "?", "shiftKey": true }, "upEvent": { "code": "Slash", "key": "?", "shiftKey": true } };
 
                         // Space
                         case " ": return { "activeModifiers": {}, "downEvent": { "code": "Space", "key": " " }, "upEvent": { "code": "Space", "key": " " } };
@@ -206,7 +185,7 @@ export function initialize(/** @type {RuntimeAPI} */ dotnetRuntime) {
                 return events;
             }
 
-            return germanKeybindings;
+            return usEnglishKeybindings;
         })();
 
         function registerInputToKeyEventsHandler(/** @type {HTMLInputElement} */ inputElement) {

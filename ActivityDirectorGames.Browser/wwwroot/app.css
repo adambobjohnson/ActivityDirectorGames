@@ -1,58 +1,73 @@
-﻿/* HTML styles for the splash screen */
-.avalonia-splash {
-    position: absolute;
+﻿html,
+body,
+#out {
     height: 100%;
     width: 100%;
-    background: white;
+    margin: 0;
+}
+
+/* HTML styles for the splash screen */
+.avalonia-splash {
+    position: fixed;
+    inset: 0;
+    background: #e8f2fb url('ActivityDirectorGames.jpg') center / cover no-repeat;
     font-family: 'Outfit', sans-serif;
     justify-content: center;
     align-items: center;
     display: flex;
     pointer-events: none;
+    overflow: hidden;
+    z-index: 1000;
 }
 
-/* Light theme styles */
-@media (prefers-color-scheme: light) {
-    .avalonia-splash {
-        background: white;
-    }
+.splash-video {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    min-width: 100%;
+    transform: translateX(-50%);
+    object-fit: cover;
+    z-index: 0;
+}
 
-    .avalonia-splash h2 {
-        color: #1b2a4e;
-    }
-
-    .avalonia-splash a {
-        color: #0D6EFD;
-    }
+.splash-content {
+    position: relative;
+    z-index: 1;
+    max-width: min(90vw, 48rem);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 2rem rgba(27, 42, 78, 0.18);
 }
 
 @media (prefers-color-scheme: dark) {
-    .avalonia-splash {
-        background: #1b2a4e;
+    .splash-content {
+        background: rgba(27, 42, 78, 0.82);
     }
 
     .avalonia-splash h2 {
         color: white;
     }
+}
 
-    .avalonia-splash a {
-        color: white;
+@media (prefers-color-scheme: light) {
+    .avalonia-splash h2 {
+        color: #1b2a4e;
     }
 }
 
 .avalonia-splash h2 {
     font-weight: 400;
     font-size: 1.5rem;
-}
-
-.avalonia-splash a {
-    text-decoration: none;
-    font-size: 2.5rem;
-    display: block;   
+    margin: 0;
 }
 
 .avalonia-splash.splash-close {
-    transition: opacity 200ms, display 200ms;
-    display: none;
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 300ms ease, visibility 300ms ease;
 }

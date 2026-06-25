@@ -11,19 +11,22 @@
     <link rel="modulepreload" href="./_framework/avalonia.js" />
     <link rel="stylesheet" href="./app.css" />
     <link href="manifest.webmanifest" rel="manifest" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
 </head>
 
 <body style="margin: 0px; overflow: hidden">
     <div id="out">
-        <div id="avalonia-splash" class="avalonia-splash">
-            <div class="center">
-                <h2 class="purple">
-                    Created by Adam Johnson for WellQuest
+        <div class="avalonia-splash">
+            <video class="splash-video" autoplay muted playsinline poster="ActivityDirectorGames.jpg">
+                <source src="ActivityDirectorGames.mp4" type="video/mp4" />
+            </video>
+            <div class="splash-content">
+                <h2>
+                    Created by Adam Johnson for <strong>Abby Johnson</strong> and all her adventures.
                 </h2>
             </div>
-            
         </div>
     </div>
     <script type='module' src="./main.js"></script>

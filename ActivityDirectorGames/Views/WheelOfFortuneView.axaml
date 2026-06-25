@@ -329,6 +329,7 @@
                                 Row Two (14 letters max)
                             </Label>
                             <TextBox
+                                Name="SecondRowTextBox"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 MinWidth="200"
@@ -346,6 +347,7 @@
                                 Row Three (14 letters max)
                             </Label>
                             <TextBox
+                                Name="ThirdRowTextBox"
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 MinWidth="200"
@@ -363,6 +365,7 @@
                                 Row Four (12 letters max)
                             </Label>
                             <TextBox
+                                Name="FourthRowTextBox"
                                 Grid.Row="3"
                                 Grid.Column="1"
                                 MinWidth="200"
@@ -380,6 +383,7 @@
                                 Clue/Prompt/Title
                             </Label>
                             <TextBox
+                                Name="TitleTextBox"
                                 Grid.Row="4"
                                 Grid.Column="1"
                                 MinWidth="200"
